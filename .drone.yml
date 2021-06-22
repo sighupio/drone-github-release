@@ -1,0 +1,17 @@
+---
+kind: pipeline
+name: Release
+
+steps:
+- name: docker  
+  image: plugins/docker
+  settings:
+    registry: registry.sighup.io
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+    repo: registry.sighup.io/fury/drone-github-release
+    tags: latest
+    pull_image: true
+    no_cache: true
