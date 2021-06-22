@@ -1,6 +1,24 @@
+# Copyright (c) 2021 SIGHUP s.r.l All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+kind: pipeline
+name: license
+
+steps:
+  - name: check
+    image: docker.io/library/golang:1.16
+    pull: always
+    commands:
+      - go get -u github.com/google/addlicense
+      - addlicense -c "SIGHUP s.r.l" -v -l bsd --check .
+
 ---
 kind: pipeline
 name: Release
+
+depends_on:
+  - license
 
 steps:
 - name: docker  
